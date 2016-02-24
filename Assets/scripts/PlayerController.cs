@@ -52,9 +52,7 @@ public class PlayerController : MonoBehaviour {
 			camTransform.Rotate (Vector3.left * rotateSpeed * Time.deltaTime);
 		}
 
-		if (Input.anyKey) {
-			//just chill
-		} else {
+		if (!Input.anyKey) {
 			camTransform.rotation = Quaternion.RotateTowards(camTransform.rotation,transform.rotation, Time.deltaTime * 20);
 		}
 
@@ -76,6 +74,7 @@ public class PlayerController : MonoBehaviour {
 		if (atmoSphereTravel) {
 			DoShake(travelSpeed * 2 + 5);
 			transform.position = Vector3.MoveTowards (transform.position, atmosphere.position, travelSpeed * speed);
+      
 			if (atmosphere.position.y - transform.position.y < 1800) {
 				transform.Rotate (Vector3.left * 17F * Time.deltaTime);
 			}
@@ -87,8 +86,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	
 
-		if(ShakeIntensity > 0)
-		{
+		if(ShakeIntensity > 0) {
 			camTransform.localPosition = OriginalPos + Random.insideUnitSphere * ShakeIntensity;
 			camTransform.localRotation = new Quaternion(OriginalRot.x + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f,
 			                                    OriginalRot.y + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f,
@@ -96,23 +94,18 @@ public class PlayerController : MonoBehaviour {
 			                                    OriginalRot.w + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f);
 			
 			ShakeIntensity -= ShakeDecay;
-		}
-		else if (Shaking)
-		{
+    } else if (Shaking) {
 			Shaking = false;    
 		}
-
 	}
 
-	public void DoShake(float speed)
-	{
+	public void DoShake(float speed) {
 		OriginalPos = camTransform.localPosition;
 		OriginalRot = camTransform.localRotation;
 
 		if (0.015f * speed < 0.02f) {
 			ShakeIntensity = 0.015f * speed;
-		}
-		else {
+		} else {
 			ShakeIntensity = 0.02f;
 		}
 		ShakeDecay = 0.1f;

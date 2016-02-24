@@ -14,7 +14,6 @@ public class AstronautController : MonoBehaviour {
 
 	public float speed;
 
-
 	public bool astronautPositionOneTravel;
 	public bool astronautPositionTwoTravel;
 	public bool astronautRotate;
@@ -26,12 +25,9 @@ public class AstronautController : MonoBehaviour {
 	public bool startTravel;
 	public bool firstTime;
 	
-
-
 	// Use this for initialization
 	void Start () {
 		speed = 0.1F;
-
 	}
 	
 	// Update is called once per frame
@@ -51,18 +47,13 @@ public class AstronautController : MonoBehaviour {
 				astronaut.position = Vector3.MoveTowards (astronaut.position, astronautPositionOne.position, 0.25f * Time.deltaTime);
 				astronaut.rotation = Quaternion.RotateTowards (astronaut.rotation, astronautPositionOne.rotation, 20 * Time.deltaTime);
 			}
-
-
-
 		}
-
-	
 
 		if (astronaut.position == astronautPositionOne.position || astronautAtPositionOne) {
 			astronautPositionOneTravel = false;
 			astronautAtPositionOne = true;
 			startTravel = false;
-
+      
 			StartCoroutine(WaitTravelTwo(9));
 			
 			if (wrenchArm.eulerAngles.z > 8) {
@@ -79,12 +70,9 @@ public class AstronautController : MonoBehaviour {
 				wrenchArm.Rotate (Vector3.forward * Time.deltaTime * 5);
 			}
 
-		
 			if (wrenchRotateTwo) {
 				wrenchArm.Rotate (Vector3.back * Time.deltaTime * 5);
 			}
-
-
 		}
 
 		if (astronaut.position == astronautPositionTwo.position || astronautAtPositionTwo) {
@@ -108,14 +96,10 @@ public class AstronautController : MonoBehaviour {
 				wrenchArm.Rotate (Vector3.forward * Time.deltaTime * 5);
 			}
 			
-			
 			if (wrenchRotateTwo) {
 				wrenchArm.Rotate (Vector3.back * Time.deltaTime * 5);
 			}
-			
-			
 		}
-
 	}
 
 	IEnumerator WaitTravelTwo(float waitTime) {
@@ -133,6 +117,5 @@ public class AstronautController : MonoBehaviour {
 	IEnumerator Delay(float waitTime) {
 		yield return new WaitForSeconds (waitTime);
 		startTravel = true;
-
 	}
 }

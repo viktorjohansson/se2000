@@ -37,10 +37,12 @@ public class LandingController : MonoBehaviour {
 	void Update () {
 		highSpeedStep = 30 * Time.deltaTime;
 		lowSpeedStep = 3 * Time.deltaTime;
+    
 		if (transform.position.y > (onWater.position.y + 60)) {
 			transform.position = Vector3.MoveTowards (transform.position, onWater.position, highSpeedStep);
 			DoShake (highSpeedStep);
 		}
+    
 		if (transform.position.y > onWaterFront.position.y && transform.position.y < onWater.position.y + 65)  {
 			camTransform.localRotation = Quaternion.RotateTowards(camTransform.localRotation, noRotation.rotation, Time.deltaTime);
 			camTransform.localPosition = Vector3.MoveTowards(camTransform.localPosition, noRotation.position, Time.deltaTime);
@@ -48,18 +50,10 @@ public class LandingController : MonoBehaviour {
 			transform.position = Vector3.MoveTowards (transform.position, onWaterFront.position, lowSpeedStep);
 		}
 
-
-		if (transform.position.y < onWater.position.y + 58 && transform.position.y > onWater.position.y + 55) {
-			//Do stuff if you want homie
-		}
-
 		if (transform.position.y < onWater.position.y + 50 && transform.position.y > onWater.position.y + 45) {
 			GameObject.Find("background").GetComponent<BackgroundController>().startParachute(); //Fixa på rätt ställe
 		}
 
-		if (transform.position.y < onWater.position.y + 5 && transform.position.y > onWater.position.y + 3) {
-			//Do stuff if you want homie
-		}
 		if (transform.position.y < onWater.position.y + 1 && transform.position.y > onWater.position.y + 0.5F) {
 			if (reload == false) {
 				GameObject.Find ("audio").GetComponent<AudioController>().playSound (7); 
@@ -69,8 +63,7 @@ public class LandingController : MonoBehaviour {
 			}
 		}
 		
-		if(ShakeIntensity > 0)
-		{
+		if(ShakeIntensity > 0) {
 			camTransform.localPosition = OriginalPos + Random.insideUnitSphere * ShakeIntensity;
 			camTransform.localRotation = new Quaternion(OriginalRot.x + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f,
 			                                            OriginalRot.y + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f,
@@ -78,36 +71,34 @@ public class LandingController : MonoBehaviour {
 			                                            OriginalRot.w + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f);
 			
 			ShakeIntensity -= ShakeDecay;
-		}
-		else if (Shaking)
-		{
+    } else if (Shaking) {
 			Shaking = false;    
 		}
-
 	}
 
 	void PointCamera(Transform direction) {
+    
 		if (setRotationTime == false) {
 			setRotationTime = true;
 		}
+    
 		var targetRotation = Quaternion.LookRotation(direction.transform.position - transform.localPosition);
 		transform.localRotation = Quaternion.RotateTowards(transform.rotation,targetRotation, Time.deltaTime * 5);
+    
 		if (targetRotation == transform.localRotation) {
 			setRotationTime = false;
 			cameraDone = true;
 		}
 	}
 
-	public void DoShake(float speed)
-	{
+	public void DoShake(float speed) {
 		OriginalPos = camTransform.localPosition;
 		OriginalRot = camTransform.localRotation;
 		
 		if (0.015f * speed < 0.02f) {
 			ShakeIntensity = 0.015f * speed;
-		}
-		else {
-			ShakeIntensity = 0.02f;
+		} else {
+		  ShakeIntensity = 0.02f;
 		}
 		ShakeDecay = 0.1f;
 		Shaking = true;

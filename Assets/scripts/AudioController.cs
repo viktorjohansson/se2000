@@ -20,8 +20,7 @@ public class AudioController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//AudioSource audio = GetComponent<AudioSource>();
-
+    
 		sounds =  new AudioClip[] {
 			(takeOff),
 			(countDown), 
@@ -35,9 +34,9 @@ public class AudioController : MonoBehaviour {
 			(astronaut),
 			(arrivedSpace)
 		};
+    
 	}
 
-	
 	public void playSound(int arrayNumber) {
 		if (sounds [arrayNumber] == astronaut) {
 			GetComponent<AudioSource> ().PlayOneShot (sounds [arrayNumber], 0.05F);
@@ -56,10 +55,5 @@ public class AudioController : MonoBehaviour {
 		audio1Volume -= 0.35F * Time.deltaTime;
 		GetComponent<AudioSource> ().volume = audio1Volume;
 	}
-
-
-
-	
-
 
 }

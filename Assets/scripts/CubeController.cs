@@ -171,9 +171,7 @@ public class CubeController : MonoBehaviour {
 	void Update () {
 
 		step = (Time.deltaTime * topSpeed) * speed;
-
 		bool landing = Input.GetKeyDown (KeyCode.Q);
-
 
 		if (ride) {
 			if (cameraDone == true) {
@@ -205,6 +203,7 @@ public class CubeController : MonoBehaviour {
 				//GameObject.Find ("audio").GetComponent<AudioController>().stopSound ();
 			}
 		}
+    
 		if (returnPartOneTravel) {
 			if (cameraDone == true) {
 				transform.LookAt (spaceStation); 
@@ -219,6 +218,7 @@ public class CubeController : MonoBehaviour {
 				cameraDone = false;
 			}
 		}
+    
 		if (returnPartTwoTravel) {
 			if (cameraDone == true) {
 				transform.LookAt (mars); 
@@ -254,6 +254,7 @@ public class CubeController : MonoBehaviour {
 			buttonPress = true;
 			GameObject.Find("background").GetComponent<BackgroundController>().startLanding();
 		}
+    
 		if (land) {
 			if (cameraDone == false) {
 				PointCamera (earth);
@@ -282,9 +283,8 @@ public class CubeController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.DownArrow)) {
 			camTransform.Rotate (-Vector3.left * rotateSpeed * Time.deltaTime);
 		}
-		if (Input.anyKey) {
-			//just chill
-		} else {
+    
+		if (!Input.anyKey) {
 			camTransform.rotation = Quaternion.RotateTowards(camTransform.rotation,transform.rotation, Time.deltaTime * 30);
 		}
 
@@ -381,6 +381,7 @@ public class CubeController : MonoBehaviour {
 	void PlanetTravel(Transform planet, Vector3 planetOverviewFirst, Vector3 planetOverviewSecond, Texture travelTexture, Texture planetTexture, Texture planetSphere) {
 		GameObject.Find ("background").GetComponent<BackgroundController> ().travel (travelTexture, true);
 		buttonPress = true;
+    
 		if (cameraDone == true) {
 			transform.LookAt (planet);
 		}
@@ -394,11 +395,13 @@ public class CubeController : MonoBehaviour {
 			startTime = Time.time;
 			setTime = true;
 		}
+    
 		journeyLengthPlanet = Vector3.Distance (transform.position, planetPosition);
 
 		if (cameraDone == false && journeyLengthPlanet > 0.01F) {
 			PointCamera (planet);
 		} else if (journeyLengthPlanet > 0.01F) {
+      
 			if (journeyLengthPlanet > 17.62F) {
 				if (((Time.time - startTime) * 4) < 6.0F) {
 					travelSpeed = (Time.time - startTime) * 4;
@@ -436,10 +439,12 @@ public class CubeController : MonoBehaviour {
 					setTime = false;
 					audioPlayed = false;
 					buttonPress = false;
+          
 					if (outerSpaceTravel && astronautPlayed == false) {
 						GameObject.Find ("audio").GetComponent<AudioController> ().playSound (9);
 						astronautPlayed = true;
 					}
+          
 					outerSpaceTravel = false;
 				}
 			}
@@ -454,8 +459,7 @@ public class CubeController : MonoBehaviour {
 		
 		if (0.015f * speed < 0.02f) {
 			ShakeIntensity = 0.015f * speed;
-		}
-		else {
+		}	else {
 			ShakeIntensity = 0.02f;
 		}
 		ShakeDecay = 0.1f;

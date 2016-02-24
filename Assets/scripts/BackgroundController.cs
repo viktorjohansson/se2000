@@ -50,8 +50,7 @@ public class BackgroundController : MonoBehaviour {
 		
 		if (blinker) {
 			fadeOutCheck = true;
-		}
-		else {
+		} else {
 			fadeOutCheck = false;
 			fadeInCheck = false;
 		}
@@ -109,8 +108,6 @@ public class BackgroundController : MonoBehaviour {
 		StartCoroutine(fadeOut());
 		StartCoroutine(fadeInTravel(landed));
 	}
-
-
 	
 	IEnumerator fadeOut() {
 		GameObject.Find("background").GetComponent<FadingController>().BeginFade(1);

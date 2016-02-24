@@ -6,7 +6,6 @@ public class Float : MonoBehaviour {
 	public float RandomRotationStrenght;
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
