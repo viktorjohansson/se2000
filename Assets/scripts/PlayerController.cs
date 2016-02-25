@@ -24,9 +24,18 @@ public class PlayerController : MonoBehaviour {
 
 	private float ShakeDecay;
 	private float ShakeIntensity;
+  
+	public GameObject standby;
+	public GameObject journeyAudios;
+	public GameObject backgroundSound;
+	public GameObject player;
 
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("player");
+		standby = GameObject.Find ("standby");
+		journeyAudios = GameObject.Find ("audio");
+		backgroundSound = GameObject.Find ("background");
 		journeyLengthAtmosphere = Vector3.Distance(onGround.position, atmosphere.position);
 		Shaking = false;  
 		atmoSphereTravel = false;
@@ -60,11 +69,11 @@ public class PlayerController : MonoBehaviour {
 		float travelSpeed = (distCovered + 1) * Time.deltaTime;
 
 		if (Input.GetKeyDown ("x") && startDone == false) {
-			GameObject.Find ("standby").GetComponent<AudioSource>().Stop ();
-			GameObject.Find ("audio").GetComponent<AudioController>().playSound (0); //0 = takeOff, kolla AudioController
+			standby.GetComponent<AudioSource>().Stop();
+			journeyAudios.GetComponent<AudioController>().playSound (0); //0 = takeOff, kolla AudioController
 			startDone = true;
 			StartCoroutine(WaitForTakeOff());
-			GameObject.Find("background").GetComponent<BackgroundController>().start();
+			backgroundSound.GetComponent<BackgroundController>().start();
 		} 
 
 		if (startShake) {
@@ -80,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 			}
 
 			if (atmosphere.position.y - transform.position.y < 50) {
-				float fadeTime = GameObject.Find("player").GetComponent<Fading>().BeginFade(1);
+				float fadeTime = player.GetComponent<Fading>().BeginFade(1);
 				StartCoroutine(LoadScene(fadeTime));
 			}
 		}
