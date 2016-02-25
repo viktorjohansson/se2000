@@ -9,7 +9,14 @@ public class BackgroundController : MonoBehaviour {
 	public Texture landed;
 	public Texture startTexture;
 	public Texture outerSpaceTexture;
-	
+
+	public Texture takeOffEng;
+	public Texture landingEng;
+	public Texture parachuteEng;
+	public Texture landedEng;
+	public Texture startTextureEng;
+	public Texture outerSpaceTextureEng;
+
 	public Texture ten;
 	public Texture nine;
 	public Texture eight;
@@ -64,32 +71,44 @@ public class BackgroundController : MonoBehaviour {
 		}
 	}
 
-	public void travel(Texture destination, bool blink) {
+	public void travel(Texture destination, Texture destinationEng, int language, bool blink) {
 		if (coroutinesDone == false) {
 			StartCoroutine (fadeOut ());
-			StartCoroutine (fadeInTravel (destination));
+			if (language == 0) {
+				StartCoroutine (fadeInTravel (destination));
+			} else {
+				StartCoroutine (fadeInTravel (destinationEng));
+			}
 			coroutinesDone = true;
 		} else {
 			blinker = blink;
 		}
 	}
 
-	public void arrived(Texture planet, Texture planetSphere) {
+	public void arrived(Texture planet, Texture planetEng, Texture planetSphere, int language) {
 		blinker = false;
 		coroutinesDone = false;
 		StartCoroutine (fadeOut());
-		StartCoroutine (fadeIn(planet, planetSphere));
+		if (language == 0) {
+			StartCoroutine (fadeIn (planet, planetSphere));
+		} else {
+			StartCoroutine (fadeIn (planetEng, planetSphere));
+		}
 	}
 
 	public void start() {
 		StartCoroutine (fadeCountDown ());
 	}
 
-	public void outerSpace() {
+	public void outerSpace(int language) {
 		blinker = false;
 		takeOffCheck = false;
 		StartCoroutine(fadeOut());
-		StartCoroutine(fadeInTravel(outerSpaceTexture));
+		if (language == 0) {
+			StartCoroutine (fadeInTravel (outerSpaceTexture));
+		} else {
+			StartCoroutine (fadeInTravel (outerSpaceTextureEng));
+		}
 	}
 
 	public void startLanding() {
@@ -97,16 +116,24 @@ public class BackgroundController : MonoBehaviour {
 		GameObject.Find ("planet").GetComponent<PlanetController> ().hide ();
 	}
 
-	public void startParachute() {
+	public void startParachute(int language) {
 		blinker = false;
 		takeOffCheck = false;
 		StartCoroutine(fadeOut());
-		StartCoroutine(fadeInTravel(parachute));
+		if (language == 0) {
+			StartCoroutine (fadeInTravel (parachute));
+		} else {
+			StartCoroutine (fadeInTravel (parachuteEng));
+		}
 	}
 
-	public void hasLanded() {
+	public void hasLanded(int language) {
 		StartCoroutine(fadeOut());
-		StartCoroutine(fadeInTravel(landed));
+		if (language == 0) {
+			StartCoroutine(fadeInTravel(landed));
+		} else {
+			StartCoroutine(fadeInTravel(landedEng));
+		}
 	}
 	
 	IEnumerator fadeOut() {

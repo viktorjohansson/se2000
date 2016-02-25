@@ -61,6 +61,8 @@ public class CubeController : MonoBehaviour {
 	public float smoothTime;
 	public float rotateSpeed;
 
+	public int language;
+
 	public bool testing;
 	public bool rotateCamera;
 	public bool ride;
@@ -105,8 +107,18 @@ public class CubeController : MonoBehaviour {
 	public Texture travelToNeptune;
 	public Texture travelToISS;
 	public Texture travelToAsteroids;
-	
-	public Texture outerSpaceTexture;
+
+	public Texture travelToMercuryEng;
+	public Texture travelToVenusEng;
+	public Texture travelToEarthEng;
+	public Texture travelToMarsEng;
+	public Texture travelToJupiterEng;
+	public Texture travelToSaturnEng;
+	public Texture travelToUranusEng;
+	public Texture travelToNeptuneEng;
+	public Texture travelToISSEng;
+	public Texture travelToAsteroidsEng;
+
 	public Texture mercuryTexture;
 	public Texture venusTexture;
 	public Texture earthTexture;
@@ -117,7 +129,18 @@ public class CubeController : MonoBehaviour {
 	public Texture neptuneTexture;
 	public Texture ISSTexture;
 	public Texture asteroidTexture;
-	
+
+	public Texture mercuryTextureEng;
+	public Texture venusTextureEng;
+	public Texture earthTextureEng;
+	public Texture marsTextureEng;
+	public Texture jupiterTextureEng;
+	public Texture saturnTextureEng;
+	public Texture uranusTextureEng;
+	public Texture neptuneTextureEng;
+	public Texture ISSTextureEng;
+	public Texture asteroidTextureEng;
+
 	public Texture mercurySphere;
 	public Texture venusSphere;
 	public Texture earthSphere;
@@ -136,6 +159,8 @@ public class CubeController : MonoBehaviour {
 		smoothTime = 4F;
 		travelSpeed = 0F;
 		rotateSpeed = 30F;
+
+		language = 0;
 
 		ride = true;
 		land = false;
@@ -245,7 +270,7 @@ public class CubeController : MonoBehaviour {
 				cameraDone = false;
 				audioPlayed = false;
 				buttonPress = false;
-				GameObject.Find("background").GetComponent<BackgroundController>().outerSpace();
+				GameObject.Find("background").GetComponent<BackgroundController>().outerSpace(language);
 			}
 		}
 
@@ -290,60 +315,76 @@ public class CubeController : MonoBehaviour {
 
 		if (((Input.GetKeyDown ("p") && buttonPress == false) || outerSpaceTravel == true) && planetAt != spaceStation) {
 			outerSpaceTravel = true;
-			PlanetTravel (spaceStation, outerSpace.position, outerSpace.position, travelToISS, ISSTexture, ISSTexture);
+			PlanetTravel (spaceStation, outerSpace.position, outerSpace.position, travelToISS, travelToISSEng, ISSTexture, ISSTextureEng, ISSTexture);
 		}
 
 		if (((Input.GetKeyDown ("w") && buttonPress == false) || mercuryTravel == true) && planetAt != mercury) {
 			mercuryTravel = true;
-			PlanetTravel (mercury, mercuryOverviewFirst.position, mercuryOverviewSecond.position, travelToMercury, mercuryTexture, mercurySphere);
+			PlanetTravel (mercury, mercuryOverviewFirst.position, mercuryOverviewSecond.position, travelToMercury, travelToMercuryEng, mercuryTexture, mercuryTextureEng, mercurySphere);
 		}
 
 		if (((Input.GetKeyDown ("e") && buttonPress == false) || venusTravel == true) && planetAt != venus) {
 			venusTravel = true;
-			PlanetTravel (venus, venusOverviewFirst.position, venusOverviewSecond.position, travelToVenus, venusTexture, venusSphere);
+			PlanetTravel (venus, venusOverviewFirst.position, venusOverviewSecond.position, travelToVenus, travelToVenusEng, venusTexture, venusTextureEng, venusSphere);
 		}
 
 		if (((Input.GetKeyDown ("r") && buttonPress == false) || earthTravel == true) && planetAt != earth) {
 			earthTravel = true;
-			PlanetTravel (earth, earthOverviewFirst.position, earthOverviewSecond.position, travelToEarth, earthTexture, earthSphere);
+			PlanetTravel (earth, earthOverviewFirst.position, earthOverviewSecond.position, travelToEarth, travelToEarthEng, earthTexture, earthTextureEng, earthSphere);
 		}
 
 		if (((Input.GetKeyDown ("t") && buttonPress == false) || marsTravel == true) && planetAt != mars) {
 			marsTravel = true;
-			PlanetTravel (mars, marsOverviewFirst.position, marsOverviewSecond.position, travelToMars, marsTexture, marsSphere);
+			PlanetTravel (mars, marsOverviewFirst.position, marsOverviewSecond.position, travelToMars, travelToMarsEng, marsTexture, marsTextureEng, marsSphere);
 		}
 
 		if (((Input.GetKeyDown ("y") && buttonPress == false) || jupiterTravel == true) && planetAt != jupiter) {
 			jupiterTravel = true;
-			PlanetTravel (jupiter, jupiterOverviewFirst.position, jupiterOverviewSecond.position, travelToJupiter, jupiterTexture, jupiterSphere);
+			PlanetTravel (jupiter, jupiterOverviewFirst.position, jupiterOverviewSecond.position, travelToJupiter, travelToJupiterEng, jupiterTexture, jupiterTextureEng, jupiterSphere);
 		}
 
 		if (((Input.GetKeyDown ("u") && buttonPress == false) || saturnTravel == true) && planetAt != saturn) {
 			saturnTravel = true;
-			PlanetTravel (saturn, saturnOverviewFirst.position, saturnOverviewSecond.position, travelToSaturn, saturnTexture, saturnSphere);
+			PlanetTravel (saturn, saturnOverviewFirst.position, saturnOverviewSecond.position, travelToSaturn, travelToSaturnEng, saturnTexture, saturnTextureEng, saturnSphere);
 		}
 
 		if (((Input.GetKeyDown ("i") && buttonPress == false) || uranusTravel == true) && planetAt != uranus) {
 			uranusTravel = true;
-			PlanetTravel (uranus, uranusOverviewFirst.position, uranusOverviewSecond.position, travelToUranus, uranusTexture, uranusSphere);
+			PlanetTravel (uranus, uranusOverviewFirst.position, uranusOverviewSecond.position, travelToUranus, travelToUranusEng, uranusTexture, uranusTextureEng, uranusSphere);
 		}
 
 		if (((Input.GetKeyDown ("o") && buttonPress == false) || neptuneTravel == true) && planetAt != neptune) {
 			neptuneTravel = true;
-			PlanetTravel (neptune, neptuneOverviewFirst.position, neptuneOverviewSecond.position, travelToNeptune, neptuneTexture, neptuneSphere);
+			PlanetTravel (neptune, neptuneOverviewFirst.position, neptuneOverviewSecond.position, travelToNeptune, travelToNeptuneEng, neptuneTexture, neptuneTextureEng, neptuneSphere);
 		}
 
 		if (((Input.GetKeyDown ("a") && buttonPress == false) || asteroidTravel == true) && planetAt != asteroid) {
 			asteroidTravel = true;
-			PlanetTravel (asteroid, asteroidOverviewFirst.position, asteroidOverviewFirst.position, travelToAsteroids, asteroidTexture, asteroidTexture);
+			PlanetTravel (asteroid, asteroidOverviewFirst.position, asteroidOverviewFirst.position, travelToAsteroids, travelToAsteroidsEng, asteroidTexture, asteroidTextureEng, asteroidTexture);
 		}
 
-		if (Input.GetKeyDown ("x")) {
+		if (Input.GetKeyDown ("b")) {
+			Application.LoadLevel ("eartScene");
+		}
+
+		if (Input.GetKeyDown ("n")) {
 			Application.LoadLevel ("startScene");
 		}
 
-		if(ShakeIntensity > 0)
-		{
+		if (Input.GetKeyDown ("m")) {
+			Application.LoadLevel ("landingScene");
+		}
+
+		if (Input.GetKeyDown ("c")) {
+			language = 1;
+		}
+		
+		if (Input.GetKeyDown ("v")) {
+			language = 0;
+		}
+
+
+		if(ShakeIntensity > 0) {
 			camTransform.localPosition = OriginalPos + Random.insideUnitSphere * ShakeIntensity;
 			camTransform.localRotation = new Quaternion(OriginalRot.x + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f,
 			                                            OriginalRot.y + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f,
@@ -351,9 +392,7 @@ public class CubeController : MonoBehaviour {
 			                                            OriginalRot.w + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f);
 			
 			ShakeIntensity -= ShakeDecay;
-		}
-		else if (Shaking)
-		{
+		} else if (Shaking) {
 			Shaking = false;    
 		}
 	}
@@ -378,8 +417,8 @@ public class CubeController : MonoBehaviour {
 		}
 	}
 
-	void PlanetTravel(Transform planet, Vector3 planetOverviewFirst, Vector3 planetOverviewSecond, Texture travelTexture, Texture planetTexture, Texture planetSphere) {
-		GameObject.Find ("background").GetComponent<BackgroundController> ().travel (travelTexture, true);
+	void PlanetTravel(Transform planet, Vector3 planetOverviewFirst, Vector3 planetOverviewSecond, Texture travelTexture, Texture travelTextureEng, Texture planetTexture, Texture planetTextureEng, Texture planetSphere) {
+		GameObject.Find ("background").GetComponent<BackgroundController> ().travel (travelTexture, travelTextureEng, language, true);
 		buttonPress = true;
     
 		if (cameraDone == true) {
@@ -421,7 +460,7 @@ public class CubeController : MonoBehaviour {
 				camTransform.localPosition = Vector3.MoveTowards(camTransform.localPosition,noRotation.position, Time.deltaTime);
 
 				if (journeyLengthPlanet < 0.5F) {
-					GameObject.Find ("background").GetComponent<BackgroundController> ().arrived (planetTexture, planetSphere);
+					GameObject.Find ("background").GetComponent<BackgroundController> ().arrived (planetTexture, planetTextureEng, planetSphere, language);
 					GameObject.Find ("audio").GetComponent<AudioController> ().stopSound ();
 					planetAt = planet;
 					countDone = false;
@@ -444,7 +483,6 @@ public class CubeController : MonoBehaviour {
 						GameObject.Find ("audio").GetComponent<AudioController> ().playSound (9);
 						astronautPlayed = true;
 					}
-          
 					outerSpaceTravel = false;
 				}
 			}
@@ -452,8 +490,7 @@ public class CubeController : MonoBehaviour {
 	}
 
 
-	public void DoShake(float speed)
-	{
+	public void DoShake(float speed) {
 		OriginalPos = camTransform.localPosition;
 		OriginalRot = camTransform.localRotation;
 		

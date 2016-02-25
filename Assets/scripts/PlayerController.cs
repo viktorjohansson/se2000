@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 
 	private float ShakeDecay;
 	private float ShakeIntensity;
+
+	public int language;
   
 	public GameObject standby;
 	public GameObject journeyAudios;
@@ -76,6 +78,28 @@ public class PlayerController : MonoBehaviour {
 			backgroundSound.GetComponent<BackgroundController>().start();
 		} 
 
+		if (Input.GetKeyDown ("b")) {
+			Application.LoadLevel ("earthScene");
+		}
+		
+		if (Input.GetKeyDown ("n")) {
+			Application.LoadLevel ("startScene");
+		}
+		
+		if (Input.GetKeyDown ("m")) {
+			Application.LoadLevel ("landingScene");
+		}
+
+		if (Input.GetKeyDown ("c")) {
+			language = 1;
+		}
+
+		if (Input.GetKeyDown ("v")) {
+			language = 0;
+		}
+
+
+
 		if (startShake) {
 			DoShake(5 * Time.deltaTime);
 		}
@@ -103,7 +127,7 @@ public class PlayerController : MonoBehaviour {
 			                                    OriginalRot.w + Random.Range(-ShakeIntensity, ShakeIntensity)*.2f);
 			
 			ShakeIntensity -= ShakeDecay;
-    } else if (Shaking) {
+   		 } else if (Shaking) {
 			Shaking = false;    
 		}
 	}
