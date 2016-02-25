@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour {
 	public Transform atmosphere;
 	public Transform camTransform;
 	public Transform windExplosion;
-	private float journeyLengthAtmosphere;
 
 	public float speed;
 	public float rotateSpeed;
@@ -38,7 +37,6 @@ public class PlayerController : MonoBehaviour {
 		standby = GameObject.Find ("standby");
 		journeyAudios = GameObject.Find ("audio");
 		backgroundSound = GameObject.Find ("background");
-		journeyLengthAtmosphere = Vector3.Distance(onGround.position, atmosphere.position);
 		Shaking = false;  
 		atmoSphereTravel = false;
 		startShake = false;
