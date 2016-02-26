@@ -150,6 +150,10 @@ public class CubeController : MonoBehaviour {
 	public Texture uranusSphere;
 	public Texture neptuneSphere;
 
+	public GameObject audioObject;
+	public GameObject backgroundObject;
+	public GameObject cubeObject;
+
 	void Start() {
 		Camera.main.stereoSeparation = 0.1F;
 		Camera.main.stereoConvergence = 7F;
@@ -161,6 +165,9 @@ public class CubeController : MonoBehaviour {
 		rotateSpeed = 30F;
 
 		language = 0;
+		audioObject = GameObject.Find ("audio");
+		backgroundObject = GameObject.Find ("background");
+		cubeObject = GameObject.Find ("Cube");
 
 		ride = true;
 		land = false;
@@ -270,14 +277,14 @@ public class CubeController : MonoBehaviour {
 				cameraDone = false;
 				audioPlayed = false;
 				buttonPress = false;
-				GameObject.Find("background").GetComponent<BackgroundController>().outerSpace(language);
+				backgroundObject.GetComponent<BackgroundController>().outerSpace(language);
 			}
 		}
 
 		if (landing && buttonPress == false) {
 			land = true;
 			buttonPress = true;
-			GameObject.Find("background").GetComponent<BackgroundController>().startLanding();
+			backgroundObject.GetComponent<BackgroundController>().startLanding();
 		}
     
 		if (land) {
@@ -288,7 +295,7 @@ public class CubeController : MonoBehaviour {
 				transform.position = Vector3.MoveTowards (transform.position, earth.position, 25 * Time.deltaTime); 
 				DoShake(25 * Time.deltaTime);
 				if (distanceLeft < 15) {
-					float fadeTime = GameObject.Find ("Cube").GetComponent<Fading> ().BeginFade (1);
+					float fadeTime = cubeObject.GetComponent<Fading> ().BeginFade (1);
 
 					StartCoroutine (LoadScene (fadeTime));
 				}
@@ -410,15 +417,15 @@ public class CubeController : MonoBehaviour {
 			setRotationTime = false;
 			cameraDone = true;
 			if (audioPlayed == false) {
-				GameObject.Find ("audio").GetComponent<AudioController> ().stopSound ();
-				GameObject.Find ("audio").GetComponent<AudioController>().playSound (3); //3 = acceleration, kolla AudioController
+				audioObject.GetComponent<AudioController> ().stopSound ();
+				audioObject.GetComponent<AudioController>().playSound (3); //3 = acceleration, kolla AudioController
 				audioPlayed = true;
 			}
 		}
 	}
 
 	void PlanetTravel(Transform planet, Vector3 planetOverviewFirst, Vector3 planetOverviewSecond, Texture travelTexture, Texture travelTextureEng, Texture planetTexture, Texture planetTextureEng, Texture planetSphere) {
-		GameObject.Find ("background").GetComponent<BackgroundController> ().travel (travelTexture, travelTextureEng, language, true);
+		backgroundObject.GetComponent<BackgroundController> ().travel (travelTexture, travelTextureEng, language, true);
 		buttonPress = true;
     
 		if (cameraDone == true) {
@@ -452,7 +459,7 @@ public class CubeController : MonoBehaviour {
 				transform.position = Vector3.MoveTowards (transform.position, planetPosition, (travelSpeed * speed) * Time.deltaTime);
 			} else {
 			
-				GameObject.Find ("audio").GetComponent<AudioController> ().fadeOut (); 
+				audioObject.GetComponent<AudioController> ().fadeOut (); 
 			
 				travelSpeed -= (1F * speed) * Time.deltaTime;
 				transform.position = Vector3.MoveTowards (transform.position, planetPosition, (travelSpeed * speed) * Time.deltaTime);
@@ -460,8 +467,8 @@ public class CubeController : MonoBehaviour {
 				camTransform.localPosition = Vector3.MoveTowards(camTransform.localPosition,noRotation.position, Time.deltaTime);
 
 				if (journeyLengthPlanet < 0.5F) {
-					GameObject.Find ("background").GetComponent<BackgroundController> ().arrived (planetTexture, planetTextureEng, planetSphere, language);
-					GameObject.Find ("audio").GetComponent<AudioController> ().stopSound ();
+					backgroundObject.GetComponent<BackgroundController> ().arrived (planetTexture, planetTextureEng, planetSphere, language);
+					audioObject.GetComponent<AudioController> ().stopSound ();
 					planetAt = planet;
 					countDone = false;
 					cameraDone = false;
@@ -480,7 +487,7 @@ public class CubeController : MonoBehaviour {
 					buttonPress = false;
           
 					if (outerSpaceTravel && astronautPlayed == false) {
-						GameObject.Find ("audio").GetComponent<AudioController> ().playSound (9);
+						audioObject.GetComponent<AudioController> ().playSound (9);
 						astronautPlayed = true;
 					}
 					outerSpaceTravel = false;
