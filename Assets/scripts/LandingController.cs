@@ -26,6 +26,11 @@ public class LandingController : MonoBehaviour {
 	public float lowSpeedStep;
 
 	public int language;
+
+	public GameObject audioObject;
+	public GameObject backgroundObject;
+	public GameObject program2Object;
+	public GameObject playerObject;
 	
 	// Use this for initialization
 	void Start () {
@@ -33,7 +38,13 @@ public class LandingController : MonoBehaviour {
 		Camera.main.stereoSeparation = 0.1F;
 		Camera.main.stereoConvergence = 10F;
 		reload = false;
-		GameObject.Find ("audio").GetComponent<AudioController>().playSound (2); //2 = landing, kolla AudioController
+
+		audioObject = GameObject.Find ("audio");
+		backgroundObject = GameObject.Find ("background");
+		program2Object = GameObject.Find ("Program2");
+		playerObject = GameObject.Find ("player");
+
+		audioObject.GetComponent<AudioController>().playSound (2); //2 = landing, kolla AudioController
 	}
 	
 	// Update is called once per frame
@@ -76,13 +87,13 @@ public class LandingController : MonoBehaviour {
 		}
 
 		if (transform.position.y < onWater.position.y + 50 && transform.position.y > onWater.position.y + 45) {
-			GameObject.Find("background").GetComponent<BackgroundController>().startParachute(language); //Fixa på rätt ställe
+			backgroundObject.GetComponent<BackgroundController>().startParachute(language); //Fixa på rätt ställe
 		}
 
 		if (transform.position.y < onWater.position.y + 1 && transform.position.y > onWater.position.y + 0.5F) {
 			if (reload == false) {
-				GameObject.Find ("audio").GetComponent<AudioController>().playSound (7); 
-				GameObject.Find("background").GetComponent<BackgroundController>().hasLanded(language);
+				audioObject.GetComponent<AudioController>().playSound (7); 
+				backgroundObject.GetComponent<BackgroundController>().hasLanded(language);
 				StartCoroutine(LoadScene());
 				reload = true;
 			}
@@ -132,13 +143,13 @@ public class LandingController : MonoBehaviour {
 
 	IEnumerator LoadScene() {
 		yield return new WaitForSeconds (5F);
-		GameObject.Find ("audio").GetComponent<AudioController>().playSound (8);
+		audioObject.GetComponent<AudioController>().playSound (8);
 		yield return new WaitForSeconds (10F);
 		yield return new WaitForSeconds (5F);
-		GameObject.Find("player").GetComponent<Fading>().BeginFade(1);
+		playerObject.GetComponent<Fading>().BeginFade(1);
 		yield return new WaitForSeconds (1F);
-		Destroy(GameObject.Find ("Program2"));
-		Destroy(GameObject.Find ("audio"));
+		Destroy(program2Object);
+		Destroy(audioObject);
 		Application.LoadLevel ("earthScene");
 	}
 	
