@@ -19,6 +19,7 @@ public class LandingController : MonoBehaviour {
 	public bool cameraDone;
 	public bool reload;
 	public bool audioPlayed;
+	public bool firstPointDone;
 	
 	private float ShakeDecay;
 	private float ShakeIntensity;
@@ -82,7 +83,7 @@ public class LandingController : MonoBehaviour {
 		if (transform.position.y > onWaterFront.position.y && transform.position.y < onWater.position.y + 65)  {
 			camTransform.localRotation = Quaternion.RotateTowards(camTransform.localRotation, noRotation.rotation, Time.deltaTime);
 			camTransform.localPosition = Vector3.MoveTowards(camTransform.localPosition, noRotation.position, Time.deltaTime);
-			PointCamera(horizont);
+			ParaCamera();
 			transform.position = Vector3.MoveTowards (transform.position, onWaterFront.position, lowSpeedStep);
 		}
 
@@ -112,18 +113,25 @@ public class LandingController : MonoBehaviour {
 		}
 	}
 
-	void PointCamera(Transform direction) {
+	void ParaCamera() {
     
 		if (setRotationTime == false) {
 			setRotationTime = true;
 		}
-    
-		var targetRotation = Quaternion.LookRotation(direction.transform.position - transform.localPosition);
-		transform.localRotation = Quaternion.RotateTowards(transform.rotation,targetRotation, Time.deltaTime * 5);
-    
-		if (targetRotation == transform.localRotation) {
-			setRotationTime = false;
-			cameraDone = true;
+    	
+		if (!firstPointDone) {
+			var firstTargetRotation = Quaternion.LookRotation (atmosphere.transform.position - transform.localPosition);
+			transform.localRotation = Quaternion.RotateTowards (transform.rotation, firstTargetRotation, Time.deltaTime * 500);
+			if (firstTargetRotation == transform.localRotation) {
+				firstPointDone = true;
+			}
+		} else {
+			var secondTargetRotation = Quaternion.LookRotation(horizont.transform.position - transform.localPosition);
+			transform.localRotation = Quaternion.RotateTowards (transform.rotation, secondTargetRotation, Time.deltaTime * 10);
+			if (secondTargetRotation == transform.localRotation) {
+				setRotationTime = false;
+				cameraDone = true;
+			}
 		}
 	}
 
