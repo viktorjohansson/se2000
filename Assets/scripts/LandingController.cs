@@ -118,10 +118,10 @@ public class LandingController : MonoBehaviour {
 		if (setRotationTime == false) {
 			setRotationTime = true;
 		}
-    	
+		DoShake (lowSpeedStep);
 		if (!firstPointDone) {
 			var firstTargetRotation = Quaternion.LookRotation (atmosphere.transform.position - transform.localPosition);
-			transform.localRotation = Quaternion.RotateTowards (transform.rotation, firstTargetRotation, Time.deltaTime * 300);
+			transform.localRotation = Quaternion.RotateTowards (transform.rotation, firstTargetRotation, Time.deltaTime * 100);
 			if (firstTargetRotation == transform.localRotation) {
 				firstPointDone = true;
 			}
