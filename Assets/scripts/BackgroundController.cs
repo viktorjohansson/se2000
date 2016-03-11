@@ -71,6 +71,14 @@ public class BackgroundController : MonoBehaviour {
 		}
 	}
 
+	public void switchLanguage(int language) {
+		if (language == 0) {
+			rend.material.mainTexture = startTexture;
+		} else {
+			rend.material.mainTexture = startTextureEng;
+		}
+	}
+
 	public void travel(Texture destination, Texture destinationEng, int language, bool blink) {
 		if (coroutinesDone == false) {
 			StartCoroutine (fadeOut ());

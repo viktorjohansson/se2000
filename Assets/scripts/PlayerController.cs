@@ -90,10 +90,12 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKeyDown ("c")) {
 			language = 1;
+			backgroundSound.GetComponent<BackgroundController>().switchLanguage(language);
 		}
 
 		if (Input.GetKeyDown ("v")) {
 			language = 0;
+			backgroundSound.GetComponent<BackgroundController>().switchLanguage(language);
 		}
 
 
