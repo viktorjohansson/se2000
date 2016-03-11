@@ -149,6 +149,7 @@ public class CubeController : MonoBehaviour {
 	public Texture saturnSphere;
 	public Texture uranusSphere;
 	public Texture neptuneSphere;
+	public Texture ISSphere;
 
 	public GameObject audioObject;
 	public GameObject backgroundObject;
@@ -322,7 +323,7 @@ public class CubeController : MonoBehaviour {
 
 		if (((Input.GetKeyDown ("p") && buttonPress == false) || outerSpaceTravel == true) && planetAt != spaceStation) {
 			outerSpaceTravel = true;
-			PlanetTravel (spaceStation, outerSpace.position, outerSpace.position, travelToISS, travelToISSEng, ISSTexture, ISSTextureEng, ISSTexture);
+			PlanetTravel (spaceStation, outerSpace.position, outerSpace.position, travelToISS, travelToISSEng, ISSTexture, ISSTextureEng, ISSphere);
 		}
 
 		if (((Input.GetKeyDown ("w") && buttonPress == false) || mercuryTravel == true) && planetAt != mercury) {

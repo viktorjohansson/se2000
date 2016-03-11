@@ -9,6 +9,7 @@ public class BackgroundController : MonoBehaviour {
 	public Texture landed;
 	public Texture startTexture;
 	public Texture outerSpaceTexture;
+	public Texture ISS;
 
 	public Texture takeOffEng;
 	public Texture landingEng;
@@ -27,7 +28,7 @@ public class BackgroundController : MonoBehaviour {
 	public Texture three;
 	public Texture two;
 	public Texture one;
-	
+
 	public Renderer rend;
 	
 	public bool blinker;
@@ -150,12 +151,14 @@ public class BackgroundController : MonoBehaviour {
 	}
 	
 	IEnumerator fadeIn(Texture switchTextureInfo, Texture switchTextureSphere) {
-		yield return new WaitForSeconds (0.75F);
+		yield return new WaitForSeconds (0.25F);
 		GameObject.Find ("background").GetComponent<FadingController>().BeginFade(-1);
 		GameObject.Find ("planet").GetComponent<PlanetController>().switchTexture(switchTextureSphere);
-		GameObject.Find ("planet").GetComponent<PlanetController>().show();
+		if (switchTextureSphere != ISS) {
+			GameObject.Find ("planet").GetComponent<PlanetController> ().show ();
+		}
 		rend.material.mainTexture = switchTextureInfo;
-		yield return new WaitForSeconds (2F);
+		yield return new WaitForSeconds (0.5F);
 	}
 	
 	IEnumerator fadeInTravel(Texture switchTextureTravel) {
