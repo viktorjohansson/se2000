@@ -44,7 +44,7 @@ public class LandingController : MonoBehaviour {
 		backgroundObject = GameObject.Find ("background");
 		program2Object = GameObject.Find ("Program2");
 		playerObject = GameObject.Find ("player");
-
+		audioObject.GetComponent<AudioController>().stopSound();
 		audioObject.GetComponent<AudioController>().playSound (2); //2 = landing, kolla AudioController
 	}
 	
