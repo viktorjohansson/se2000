@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class CubeController : MonoBehaviour {
-
 	public Transform outerSpace;
 	public Transform onGround;
 	public Transform spaceStation;
@@ -48,6 +47,8 @@ public class CubeController : MonoBehaviour {
 
 	public float speed = 0.3F;
 	public float startTime;
+	public float lastActiveAt;
+	public float timeBeforeInactive = 300.0F;
 	public float journeyLengthPlanet;
 	public float speedAtBrake;
 	public float startTimeBrake;
@@ -164,6 +165,7 @@ public class CubeController : MonoBehaviour {
 		smoothTime = 4F;
 		travelSpeed = 0F;
 		rotateSpeed = 30F;
+		lastActiveAt = Time.time;
 
 		language = 0;
 		audioObject = GameObject.Find ("audio");
@@ -202,9 +204,17 @@ public class CubeController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 		step = (Time.deltaTime * topSpeed) * speed;
 		bool landing = Input.GetKeyDown (KeyCode.Q);
+		bool gameIsInactive = lastActiveAt < Time.time - timeBeforeInactive;
+
+		if (Input.anyKey) {
+			lastActiveAt = Time.time;
+		}
+
+		if (gameIsInactive) {
+			land = true;
+		}
 
 		if (ride) {
 			if (cameraDone == true) {
