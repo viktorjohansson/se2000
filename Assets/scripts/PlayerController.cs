@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (!Input.anyKey) {
-			camTransform.rotation = Quaternion.RotateTowards(camTransform.rotation,transform.rotation, Time.deltaTime * 20);
+			camTransform.rotation = Quaternion.RotateTowards(camTransform.rotation,transform.rotation, Time.deltaTime * 10);
 		}
 
 		float distCovered = Vector3.Distance (transform.position, onGround.position);

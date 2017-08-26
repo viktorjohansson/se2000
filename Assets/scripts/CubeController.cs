@@ -328,7 +328,7 @@ public class CubeController : MonoBehaviour {
 		}
     
 		if (!Input.anyKey) {
-			camTransform.rotation = Quaternion.RotateTowards(camTransform.rotation,transform.rotation, Time.deltaTime * 30);
+			camTransform.rotation = Quaternion.RotateTowards(camTransform.rotation,transform.rotation, Time.deltaTime * 10);
 		}
 
 		if (((Input.GetKeyDown ("p") && buttonPress == false) || outerSpaceTravel == true) && planetAt != spaceStation) {
