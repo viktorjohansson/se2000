@@ -37,6 +37,7 @@ public class BackgroundController : MonoBehaviour {
 	public bool takeOffCheck;
 	public bool coroutinesDone;
 
+	public int language;
 	
 	// Use this for initialization
 	void Start () {
@@ -46,6 +47,7 @@ public class BackgroundController : MonoBehaviour {
 		fadeOutCheck = false;
 		takeOffCheck = false;
 		coroutinesDone = false;		
+		language = 0;
 	}
 	
 	// Update is called once per frame
@@ -70,6 +72,17 @@ public class BackgroundController : MonoBehaviour {
 		if (fadeInCheck) {				
 			StartCoroutine(blinkFadeIn());
 		}
+
+		if (Input.GetKeyDown ("c")) {
+			language = 1;
+			switchLanguage(language);
+		}
+
+		if (Input.GetKeyDown ("v")) {
+			language = 0;
+			switchLanguage(language);
+		}
+
 	}
 
 	public void switchLanguage(int language) {
@@ -80,7 +93,7 @@ public class BackgroundController : MonoBehaviour {
 		}
 	}
 
-	public void travel(Texture destination, Texture destinationEng, int language, bool blink) {
+	public void travel(Texture destination, Texture destinationEng, bool blink) {
 		if (coroutinesDone == false) {
 			StartCoroutine (fadeOut ());
 			if (language == 0) {
@@ -94,7 +107,7 @@ public class BackgroundController : MonoBehaviour {
 		}
 	}
 
-	public void arrived(Texture planet, Texture planetEng, Texture planetSphere, int language) {
+	public void arrived(Texture planet, Texture planetEng, Texture planetSphere) {
 		blinker = false;
 		coroutinesDone = false;
 		StartCoroutine (fadeOut());
@@ -109,7 +122,7 @@ public class BackgroundController : MonoBehaviour {
 		StartCoroutine (fadeCountDown ());
 	}
 
-	public void outerSpace(int language) {
+	public void outerSpace() {
 		blinker = false;
 		takeOffCheck = false;
 		StartCoroutine(fadeOut());
@@ -125,7 +138,7 @@ public class BackgroundController : MonoBehaviour {
 		GameObject.Find ("planet").GetComponent<PlanetController> ().hide ();
 	}
 
-	public void startParachute(int language) {
+	public void startParachute() {
 		blinker = false;
 		takeOffCheck = false;
 		StartCoroutine(fadeOut());
@@ -136,7 +149,7 @@ public class BackgroundController : MonoBehaviour {
 		}
 	}
 
-	public void hasLanded(int language) {
+	public void hasLanded() {
 		StartCoroutine(fadeOut());
 		if (language == 0) {
 			StartCoroutine(fadeInTravel(landed));
