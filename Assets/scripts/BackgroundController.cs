@@ -36,6 +36,7 @@ public class BackgroundController : MonoBehaviour {
 	public bool fadeOutCheck;
 	public bool takeOffCheck;
 	public bool coroutinesDone;
+	public bool lockLanguage;
 
 	public int language;
 	
@@ -48,6 +49,7 @@ public class BackgroundController : MonoBehaviour {
 		takeOffCheck = false;
 		coroutinesDone = false;		
 		language = 0;
+		lockLanguage = false;
 	}
 	
 	// Update is called once per frame
@@ -73,12 +75,16 @@ public class BackgroundController : MonoBehaviour {
 			StartCoroutine(blinkFadeIn());
 		}
 
-		if (Input.GetKeyDown ("c")) {
+		if (Input.GetKeyDown ("x")) {
+			lockLanguage = true;
+		}
+
+		if (Input.GetKeyDown ("c") && !lockLanguage) {
 			language = 1;
 			switchLanguage(language);
 		}
 
-		if (Input.GetKeyDown ("v")) {
+		if (Input.GetKeyDown ("v") && !lockLanguage) {
 			language = 0;
 			switchLanguage(language);
 		}
