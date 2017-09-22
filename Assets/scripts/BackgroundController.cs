@@ -57,7 +57,11 @@ public class BackgroundController : MonoBehaviour {
 	
 		if (takeOffCheck) {
 			blinker = true;
-			rend.material.mainTexture = takeOff;
+			if (language == 0) {
+				rend.material.mainTexture = takeOff;
+			} else {
+				rend.material.mainTexture = takeOffEng;
+			}
 		}
 		
 		if (blinker) {
