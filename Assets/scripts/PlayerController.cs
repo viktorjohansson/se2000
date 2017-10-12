@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour {
 
 	private float ShakeDecay;
 	private float ShakeIntensity;
-
-	public int language;
   
 	public GameObject standby;
 	public GameObject journeyAudios;
@@ -87,18 +85,6 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyDown ("m")) {
 			Application.LoadLevel ("landingScene");
 		}
-
-		if (Input.GetKeyDown ("c")) {
-			language = 1;
-			backgroundSound.GetComponent<BackgroundController>().switchLanguage(language);
-		}
-
-		if (Input.GetKeyDown ("v")) {
-			language = 0;
-			backgroundSound.GetComponent<BackgroundController>().switchLanguage(language);
-		}
-
-
 
 		if (startShake) {
 			DoShake(5 * Time.deltaTime);

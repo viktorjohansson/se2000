@@ -26,8 +26,6 @@ public class LandingController : MonoBehaviour {
 	public float highSpeedStep;
 	public float lowSpeedStep;
 
-	public int language;
-
 	public GameObject audioObject;
 	public GameObject backgroundObject;
 	public GameObject program2Object;
@@ -35,7 +33,6 @@ public class LandingController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		language = 0;
 		Camera.main.stereoSeparation = 0.1F;
 		Camera.main.stereoConvergence = 10F;
 		reload = false;
@@ -62,14 +59,6 @@ public class LandingController : MonoBehaviour {
 		if (Input.GetKeyDown ("m")) {
 			Application.LoadLevel ("landingScene");
 		}
-		
-		if (Input.GetKeyDown ("c")) {
-			language = 1;
-		}
-		
-		if (Input.GetKeyDown ("v")) {
-			language = 0;
-		}
 
 
 		highSpeedStep = 30 * Time.deltaTime;
@@ -88,13 +77,13 @@ public class LandingController : MonoBehaviour {
 		}
 
 		if (transform.position.y < onWater.position.y + 50 && transform.position.y > onWater.position.y + 45) {
-			backgroundObject.GetComponent<BackgroundController>().startParachute(language); //Fixa på rätt ställe
+			backgroundObject.GetComponent<BackgroundController>().startParachute(); //Fixa på rätt ställe
 		}
 
 		if (transform.position.y < onWater.position.y + 1 && transform.position.y > onWater.position.y + 0.5F) {
 			if (reload == false) {
 				audioObject.GetComponent<AudioController>().playSound (7); 
-				backgroundObject.GetComponent<BackgroundController>().hasLanded(language);
+				backgroundObject.GetComponent<BackgroundController>().hasLanded();
 				StartCoroutine(LoadScene());
 				reload = true;
 			}

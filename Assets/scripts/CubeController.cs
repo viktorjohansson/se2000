@@ -62,8 +62,6 @@ public class CubeController : MonoBehaviour {
 	public float smoothTime;
 	public float rotateSpeed;
 
-	public int language;
-
 	public bool testing;
 	public bool rotateCamera;
 	public bool ride;
@@ -167,7 +165,6 @@ public class CubeController : MonoBehaviour {
 		rotateSpeed = 30F;
 		lastActiveAt = Time.time;
 
-		language = 0;
 		audioObject = GameObject.Find ("audio");
 		backgroundObject = GameObject.Find ("background");
 		cubeObject = GameObject.Find ("Cube");
@@ -288,7 +285,7 @@ public class CubeController : MonoBehaviour {
 				cameraDone = false;
 				audioPlayed = false;
 				buttonPress = false;
-				backgroundObject.GetComponent<BackgroundController>().outerSpace(language);
+				backgroundObject.GetComponent<BackgroundController>().outerSpace();
 			}
 		}
 
@@ -393,14 +390,6 @@ public class CubeController : MonoBehaviour {
 			Application.LoadLevel ("landingScene");
 		}
 
-		if (Input.GetKeyDown ("c")) {
-			language = 1;
-		}
-		
-		if (Input.GetKeyDown ("v")) {
-			language = 0;
-		}
-
 
 		if(ShakeIntensity > 0) {
 			camTransform.localPosition = OriginalPos + Random.insideUnitSphere * ShakeIntensity;
@@ -436,7 +425,7 @@ public class CubeController : MonoBehaviour {
 	}
 
 	void PlanetTravel(Transform planet, Vector3 planetOverviewFirst, Vector3 planetOverviewSecond, Texture travelTexture, Texture travelTextureEng, Texture planetTexture, Texture planetTextureEng, Texture planetSphere) {
-		backgroundObject.GetComponent<BackgroundController> ().travel (travelTexture, travelTextureEng, language, true);
+		backgroundObject.GetComponent<BackgroundController> ().travel (travelTexture, travelTextureEng, true);
 		buttonPress = true;
     
 		if (cameraDone == true) {
@@ -478,7 +467,7 @@ public class CubeController : MonoBehaviour {
 				camTransform.localPosition = Vector3.MoveTowards(camTransform.localPosition,noRotation.position, Time.deltaTime);
 
 				if (journeyLengthPlanet < 0.5F) {
-					backgroundObject.GetComponent<BackgroundController> ().arrived (planetTexture, planetTextureEng, planetSphere, language);
+					backgroundObject.GetComponent<BackgroundController> ().arrived (planetTexture, planetTextureEng, planetSphere);
 					audioObject.GetComponent<AudioController> ().stopSound ();
 					planetAt = planet;
 					countDone = false;
